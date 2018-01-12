@@ -51,11 +51,11 @@ run_if: ""
 
 deps:
   brew:
-  - name: git
-  - name: wget
+  #- name: git
+  #- name: wget
   apt_get:
-  - name: git
-  - name: wget
+  #- name: git
+  #- name: wget
 
 
 toolkit:
@@ -64,24 +64,18 @@ toolkit:
 
 
 inputs:
-  - example_step_input: Default Value - you can leave this empty if you want to
+  - gradle_file_path:
     opts:
-      title: "Example Step Input"
-      summary: Summary. No more than 2-3 sentences.
+      title: "Gradle File Path"
+      summary: ""
       description: |
-        Description of this input.
-
-        Can be Markdown formatted text.
-      is_expand: true
+        Path to the given project's gradle file.
       is_required: true
-      value_options: []
 
 outputs:
-  - EXAMPLE_STEP_OUTPUT:
+  - GRADLE_VERSION_CODE:
     opts:
-      title: "Example Step Output"
-      summary: Summary. No more than 2-3 sentences.
-      description: |
-        Description of this output.
-
-        Can be Markdown formatted text.
+      title: "Gradle version code"
+  - GRADLE_VERSION_NAME:
+    opts:
+      title: "Gradle version name"

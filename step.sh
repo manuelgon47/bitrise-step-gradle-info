@@ -1,22 +1,32 @@
 #!/bin/bash
-set -ex
-
-echo "This is the value specified for the input 'example_step_input': ${example_step_input}"
+set -e
 
 #
-# --- Export Environment Variables for other Steps:
-# You can export Environment Variables for other Steps with
-#  envman, which is automatically installed by `bitrise setup`.
-# A very simple example:
-envman add --key EXAMPLE_STEP_OUTPUT --value 'the value you want to share'
-# Envman can handle piped inputs, which is useful if the text you want to
-# share is complex and you don't want to deal with proper bash escaping:
-#  cat file_with_complex_input | envman add --KEY EXAMPLE_STEP_OUTPUT
-# You can find more usage examples on envman's GitHub page
-#  at: https://github.com/bitrise-io/envman
+# Required parameters
+if [ -z "${gradle_file_path}" ] ; then
+  echo " [!] Missing required input: gradle_file_path"
+  exit 1
+fi
+if [ ! -f "${gradle_file_path}" ] ; then
+  echo " [!] File doesn't exist at specified build.gradle path: ${gradle_file_path}"
+  exit 1
+fi
 
-#
-# --- Exit codes:
-# The exit code of your Step is very important. If you return
-#  with a 0 exit code `bitrise` will register your Step as "successful".
-# Any non zero exit code will be registered as "failed" by `bitrise`.
+version_name=`grep -m 1 versionName ${gradle_file_path} | sed 's/^[[:blank:]]*versionName[[:blank:]]*[[:blank:]]*\"\([^\"]*\)\".*$/\1/'`
+
+if [ -z "${version_name}" ] ; then
+  echo " [!] No version_name specified!"
+  exit 1
+fi
+
+version_code=`grep versionCode ${gradle_file_path} | sed 's/.*versionCode*"//;s/".*//' | awk '{print $2}'`
+
+if [ -z "${version_code}" ] ; then
+  echo " [!] No version_code specified!"
+  exit 1
+fi
+
+# Set env vars
+envman add --key GRADLE_FILE_PATH --value "${gradle_file_path}"
+envman add --key GRADLE_VERSION_NAME --value $version_name
+envman add --key GRADLE_VERSION_NAME --value $version_code
