@@ -12,11 +12,10 @@ If you want to use your step in your project's `bitrise.yml`:
 2. reference it in your `bitrise.yml` with the `git::PUBLIC-GIT-CLONE-URL@BRANCH` step reference style:
 
 ```
-- git::https://github.com/user/my-step.git@branch:
+- git::https://github.com/manuelgon47/bitrise-step-gradle-info@develop:
    title: My step
    inputs:
-   - my_input_1: "my value 1"
-   - my_input_2: "my value 2"
+   - gradle_file_path: "app/build.gradle"
 ```
 
 You can find more examples of step reference styles
