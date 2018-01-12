@@ -3,6 +3,8 @@ set -e
 
 #
 # Required parameters
+pwd = `pwd`
+echo $pwd
 if [ -z "${gradle_file_path}" ] ; then
   echo " [!] Missing required input: gradle_file_path"
   exit 1
