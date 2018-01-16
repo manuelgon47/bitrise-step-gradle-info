@@ -71,7 +71,7 @@ inputs:
       description: |
         Path to the given project's gradle file.
       is_required: true
-  - version_code: $GRADLE_VERSION_CODE
+  - version_code: $BITRISE_BUILD_NUMBER
     opts:
       title: "Version Code"
       summary: ""
