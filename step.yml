@@ -71,8 +71,34 @@ inputs:
       description: |
         Path to the given project's gradle file.
       is_required: true
+  - version_code: $GRADLE_VERSION_CODE
+    opts:
+      title: "Version Code"
+      summary: ""
+      description: |
+        Set the version code to this value.
+        Leave this input empty to don't modify version code.
+      is_required: false
+  - version_code_offset:
+    opts:
+      title: "Version Code Offset"
+      summary: ""
+      description: |
+        This offset will be added to verson code input's value
+      is_required: false
+  - version_name:
+    opts:
+      title: "Version Name"
+      summary: ""
+      description: |
+        Set the version name to this value.
+        Leave this input empty to don't modify version name.
+      is_required: false
 
 outputs:
+  - GRADLE_FILE_PATH:
+    opts:
+      title: "Gradle file path"
   - GRADLE_VERSION_CODE:
     opts:
       title: "Gradle version code"

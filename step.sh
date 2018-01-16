@@ -14,18 +14,34 @@ if [ ! -f "${gradle_file_path}" ] ; then
   exit 1
 fi
 
-version_name=`grep -m 1 versionName ${gradle_file_path} | sed 's/^[[:blank:]]*versionName[[:blank:]]*[[:blank:]]*\"\([^\"]*\)\".*$/\1/'`
+old_version_name=`grep -m 1 versionName ${gradle_file_path} | sed 's/^[[:blank:]]*versionName[[:blank:]]*[[:blank:]]*\"\([^\"]*\)\".*$/\1/'`
 
-if [ -z "${version_name}" ] ; then
-  echo " [!] No version_name specified!"
+if [ -z "${old_version_name}" ] ; then
+  echo " [!] No versionName founded on $gradle_file_path"
   exit 1
 fi
 
-version_code=`grep versionCode ${gradle_file_path} | sed 's/.*versionCode*"//;s/".*//' | awk '{print $2}'`
+old_version_code=`grep versionCode ${gradle_file_path} | sed 's/.*versionCode*"//;s/".*//' | awk '{print $2}'`
 
-if [ -z "${version_code}" ] ; then
-  echo " [!] No version_code specified!"
+if [ -z "${old_version_code}" ] ; then
+  echo " [!] No versionCode founded on $gradle_file_path"
   exit 1
+fi
+
+# Set version code
+if [ -n "${version_code}" ] ; then
+	new_version_code=$(($version_code+$version_code_offset))
+	sed -i "versionCode $old_version_code/versionCode $new_version_code/s"
+	version_code=new_version_code
+else
+	version_code=$old_version_code
+fi
+
+# Set version name
+if [ -n "${version_name}" ] ; then
+	sed -i "versionName $old_version_name/versionName $version_name/s"
+else
+	version_name=$old_version_name
 fi
 
 # Set env vars
