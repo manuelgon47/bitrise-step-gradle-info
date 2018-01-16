@@ -64,7 +64,7 @@ toolkit:
 
 
 inputs:
-  - GRADLE_FILE_PATH:
+  - gradle_file_path:
     opts:
       title: "Gradle File Path"
       summary: ""
