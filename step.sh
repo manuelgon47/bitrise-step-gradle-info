@@ -3,7 +3,6 @@ set -e
 
 #
 # Required parameters
-pwd = `pwd`
 if [ -z "${gradle_file_path}" ] ; then
   echo " [!] Missing required input: gradle_file_path"
   exit 1
@@ -27,7 +26,11 @@ fi
 
 # Set version code
 if [ -n "${version_code}" ] ; then
+	if [ -z "${version_code_offset}" ] ; then
+		version_code_offset=0
+	fi
 	new_version_code=$(($version_code+$version_code_offset))
+	echo "New version code: $new_version_code"
 	sed -i.bak "s/versionCode $old_version_code/versionCode $new_version_code/g" $gradle_file_path
 	version_code=new_version_code
 else
@@ -36,7 +39,7 @@ fi
 
 # Set version name
 if [ -n "${version_name}" ] ; then
-	sed -i.bak "versionName $old_version_name/versionName $version_name/s" $gradle_file_path
+	sed -i.bak "s/versionName \"$old_version_name\"/versionName \"$version_name\"/g" $gradle_file_path
 else
 	version_name=$old_version_name
 fi
