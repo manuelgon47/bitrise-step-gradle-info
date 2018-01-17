@@ -10,8 +10,10 @@
 title: |-
   Gradle Info
 summary: |
+  Set the value of versionCode and versionName in the project's build.gradle to the specified version
   Extracts Android gradle attributes to eviroment variables
 description: |
+  Set the value of versionCode and versionName in the project's build.gradle to the specified version
   Extracts Android gradle attributes to eviroment variables
 website: https://github.com/manuelgon47/bitrise-step-gradle-info
 source_code_url: https://github.com/manuelgon47/bitrise-step-gradle-info
@@ -74,7 +76,7 @@ inputs:
   - version_code: $BITRISE_BUILD_NUMBER
     opts:
       title: "Version Code"
-      summary: ""
+      summary: "Set the version code to this value."
       description: |
         Set the version code to this value.
         Leave this input empty to don't modify version code.
@@ -84,12 +86,12 @@ inputs:
       title: "Version Code Offset"
       summary: ""
       description: |
-        This offset will be added to verson code input's value
+        This offset will be added to verson code input's value.
       is_required: false
   - version_name:
     opts:
       title: "Version Name"
-      summary: ""
+      summary: "Set the version name to this value."
       description: |
         Set the version name to this value.
         Leave this input empty to don't modify version name.

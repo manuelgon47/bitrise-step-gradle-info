@@ -5,10 +5,10 @@ app:
   envs:
   # If you want to share this step into a StepLib
   - BITRISE_STEP_ID: gradle-info
-  - BITRISE_STEP_VERSION: "0.0.1"
+  - BITRISE_STEP_VERSION: "1.0.0"
   - BITRISE_STEP_GIT_CLONE_URL: https://github.com/manuelgon47/bitrise-step-gradle-info
   - MY_STEPLIB_REPO_FORK_GIT_URL: $MY_STEPLIB_REPO_FORK_GIT_URL
-  - gradle_file_path: $my_gradle_file_path
+  - my_gradle_file_path: $my_gradle_file_path
 
 workflows:
   test:
@@ -36,7 +36,7 @@ workflows:
           file if you would not specify another value.
         run_if: true
         inputs:
-        - example_step_input: Example Step Input's value
+        - gradle_file_path: ${my_gradle_file_path}
     - script:
         inputs:
         - content: |
